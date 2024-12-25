@@ -13,7 +13,11 @@ const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, cors_1.default)({
+<<<<<<< HEAD
     origin: ['http://localhost:5173', 'https://ems-beta-seven.vercel.app'],
+=======
+    origin: ['http://localhost:5173', 'https://ems-beta-seven.vercel.app/'],
+>>>>>>> 5afab44142ee194537d5b6449620855f43059c5c
     credentials: true,
 }));
 app.use('/', authRoute_1.default);
