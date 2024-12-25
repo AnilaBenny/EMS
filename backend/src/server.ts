@@ -12,12 +12,11 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 app.use(cors({
-  origin: ['http://localhost:5173','https://EMS.vercel.app'], 
+  origin: ['http://localhost:5173','https://ems-beta-seven.vercel.app/'], 
   credentials: true, 
 }));
 
 app.use('/', authRoute);
-
 
 const PORT=8080;
 

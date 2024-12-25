@@ -53,15 +53,18 @@ export const getAllEmployees = async (req: Request, res: Response): Promise<any>
 
 export const editEmployee = async (req: Request, res: Response): Promise<any> => {
   try {
-    const { name, email, phone, designation, department, salary, employeeId } = req.body;
+    console.log(req.body);
+    const { name, email, phone, designation, department, salary, id } = req.body;
+   
+    
 
-    const existingEmployee = await Employee.findById(employeeId);
+    const existingEmployee = await Employee.findById(id);
 
     if (!existingEmployee) {
       return res.status(404).json({ message: 'Employee not found' });
     }
 
-    // Update fields if provided, otherwise keep existing values
+   
     existingEmployee.name = name || existingEmployee.name;
     existingEmployee.email = email || existingEmployee.email;
     existingEmployee.phone = phone || existingEmployee.phone;

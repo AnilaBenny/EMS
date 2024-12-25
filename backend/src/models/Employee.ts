@@ -9,25 +9,13 @@ const employeeSchema = new Schema({
   email: {
     type: String,
     required: [true, 'Email is required'],
-    unique: true,
-    lowercase: true,
     trim: true,
-    validate: {
-      validator: function (v: string) {
-        return /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(v); 
-      },
-      message: (props: any) => `${props.value} is not a valid email!`,
-    },
+    lowercase: true,
   },
   phone: {
-    type: Number,
+    type: String,
     required: [true, 'Phone number is required'],
-    validate: {
-      validator: function (v: number) {
-        return /^[0-9]{10}$/.test(v.toString()); 
-      },
-      message: (props: any) => `${props.value} is not a valid phone number!`,
-    },
+    match: [/^\d{10}$/, 'Please enter a valid 10-digit phone number']
   },
   designation: {
     type: String,
@@ -38,6 +26,7 @@ const employeeSchema = new Schema({
     type: String,
     required: [true, 'Department is required'],
     trim: true,
+    enum: ['IT', 'Marketing', 'UI/UX']
   },
   salary: {
     type: Number,
@@ -46,23 +35,13 @@ const employeeSchema = new Schema({
   },
   joiningDate: {
     type: Date,
+    required: [true, 'Joining date is required'],
     default: Date.now,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-  updatedAt: {
-    type: Date,
-    default: null, 
-  },
+}, {
+  timestamps: true
 });
 
-employeeSchema.pre('save', function (next) {
-  this.updatedAt = new Date(); 
-  next();
-});
-
-const Employee = model('Employee', employeeSchema);
+const Employee = mongoose.models.Employee || model('Employee', employeeSchema);
 
 export { Employee };
