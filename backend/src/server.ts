@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import cors from 'cors'
 import authRoute from './routes/authRoute';
 import { connectToDatabase } from './config/database';
+import errorHandler from './middlewares/errorHandler';
  dotenv.config();
  
 const app = express();
@@ -17,6 +18,7 @@ app.use(cors({
 }));
 
 app.use('/', authRoute);
+app.use(errorHandler);
 
 const PORT=8080;
 
