@@ -11,7 +11,7 @@ const EmployeeModal = ({ isOpen, onClose, employee, onSave, mode }) => {
     designation: "",
     department: "",
     salary: "",
-    joiningDate: "",
+    
   };
 
   const validationSchema = Yup.object({
@@ -26,7 +26,6 @@ const EmployeeModal = ({ isOpen, onClose, employee, onSave, mode }) => {
       .typeError("Salary must be a number")
       .positive("Salary must be greater than zero")
       .required("Salary is required"),
-    joiningDate: Yup.date().required("Joining date is required"),
   });
 
   const formik = useFormik({
@@ -130,24 +129,7 @@ const EmployeeModal = ({ isOpen, onClose, employee, onSave, mode }) => {
               )}
             </div>
 
-            <div>
-              <label htmlFor="joiningDate" className="block text-sm font-medium text-gray-700 mb-1">
-                Joining Date
-              </label>
-              <input
-                id="joiningDate"
-                type="date"
-                {...formik.getFieldProps("joiningDate")}
-                className={`w-full px-4 py-3 rounded-xl border ${
-                  formik.touched.joiningDate && formik.errors.joiningDate
-                    ? "border-red-500"
-                    : "border-gray-200"
-                } focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all outline-none`}
-              />
-              {formik.touched.joiningDate && formik.errors.joiningDate && (
-                <p className="text-sm text-red-500 mt-1">{formik.errors.joiningDate}</p>
-              )}
-            </div>
+
 
             <div className="flex gap-3 justify-end mt-6">
               <button
