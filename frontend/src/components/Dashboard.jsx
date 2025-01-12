@@ -214,9 +214,6 @@ const EmployeeDashboard = () => {
                       <td className="px-6 py-4 text-gray-600">{emp.phone}</td>
                       <td className="px-6 py-4 text-gray-600">{emp.email}</td>
                       <td className="px-6 py-4 text-right font-medium">${emp.salary}</td>
-                      <td className="px-6 py-4 text-right text-gray-600">
-                        {new Date(emp.joiningDate).toLocaleDateString()}
-                      </td>
                       <td className="px-6 py-4">
                         <div className="flex gap-2 justify-end">
                           <button 
@@ -244,7 +241,7 @@ const EmployeeDashboard = () => {
             )}
           </div>
 
-          {/* Mobile Card View */}
+      \
           <div className="md:hidden grid grid-cols-1 gap-6">
             {filteredEmployees.length > 0 ? (
               filteredEmployees.map((emp) => (
