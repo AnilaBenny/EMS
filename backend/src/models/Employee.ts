@@ -32,12 +32,7 @@ const employeeSchema = new Schema({
     type: Number,
     required: [true, 'Salary is required'],
     min: [0, 'Salary must be positive'],
-  },
-  joiningDate: {
-    type: Date,
-    required: [true, 'Joining date is required'],
-    default: Date.now,
-  },
+  }
 }, {
   timestamps: true
 });

@@ -44,8 +44,7 @@ const getAllEmployees = async (req, res, next) => {
 exports.getAllEmployees = getAllEmployees;
 const editEmployee = async (req, res, next) => {
     try {
-        console.log(req.body);
-        const { name, email, phone, designation, department, salary, id } = req.body;
+        const { id, name, email, phone, designation, department, salary } = req.body;
         const existingEmployee = await Employee_1.Employee.findById(id);
         if (!existingEmployee) {
             throw new errors_1.NotFoundError('Employee not found');

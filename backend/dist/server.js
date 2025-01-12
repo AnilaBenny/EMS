@@ -29,3 +29,4 @@ console.log('App is starting...');
 }).catch((error) => {
     console.error('Failed to connect to the database:', error);
 });
+exports.default = app;

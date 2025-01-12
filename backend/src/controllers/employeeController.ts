@@ -48,8 +48,7 @@ export const getAllEmployees = async (req: Request, res: Response, next: NextFun
 
 export const editEmployee = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    console.log(req.body);
-    const { name, email, phone, designation, department, salary, id } = req.body;
+    const { id,name, email, phone, designation, department, salary } = req.body;
 
     const existingEmployee = await Employee.findById(id);
 
@@ -57,6 +56,7 @@ export const editEmployee = async (req: Request, res: Response, next: NextFuncti
       throw new NotFoundError('Employee not found');
     }
 
+  
     existingEmployee.name = name || existingEmployee.name;
     existingEmployee.email = email || existingEmployee.email;
     existingEmployee.phone = phone || existingEmployee.phone;
@@ -74,6 +74,7 @@ export const editEmployee = async (req: Request, res: Response, next: NextFuncti
     next(error);
   }
 };
+
 
 export const deleteEmployee = async (req: Request, res: Response, next: NextFunction) => {
   const { employeeId } = req.params;

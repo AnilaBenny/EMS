@@ -21,6 +21,16 @@ export async function connectToDatabase() {
 }
 
 
+export async function closeDatabase() {
+   try {
+     await mongoose.connection.close();
+     console.log('MongoDB connection closed');
+   } catch (err: any) {
+     console.error('Error closing MongoDB connection: ' + err.message);
+     throw err;
+   }
+ }
+
 
 
 
