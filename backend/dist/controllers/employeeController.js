@@ -5,7 +5,6 @@ const Employee_1 = require("../models/Employee");
 const errors_1 = require("../utils/errors");
 const createEmployee = async (req, res, next) => {
     try {
-        console.log(req.body);
         const { name, email, phone, designation, department, salary } = req.body;
         if (!name || !email || !phone || !designation || !department || !salary) {
             throw new errors_1.ValidationError("All required fields must be provided");

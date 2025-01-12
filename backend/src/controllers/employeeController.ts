@@ -4,7 +4,7 @@ import { ValidationError, NotFoundError, InternalServerError } from '../utils/er
 
 export const createEmployee = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    console.log(req.body);
+  
 
     const { name, email, phone, designation, department, salary } = req.body;
 
