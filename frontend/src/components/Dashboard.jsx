@@ -182,7 +182,7 @@ const EmployeeDashboard = () => {
             </button>
           </div>
 
-          {/* Desktop Table View */}
+          
           <div className="hidden md:block overflow-x-auto rounded-xl">
             {filteredEmployees.length > 0 ? (
               <table className="w-full">
@@ -237,7 +237,7 @@ const EmployeeDashboard = () => {
             )}
           </div>
 
-      \
+      
           <div className="md:hidden grid grid-cols-1 gap-6">
             {filteredEmployees.length > 0 ? (
               filteredEmployees.map((emp) => (

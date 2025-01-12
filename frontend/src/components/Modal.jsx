@@ -1,19 +1,11 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { FiX, FiUser, FiMail, FiPhone, FiBriefcase, FiDollarSign } from "react-icons/fi";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
 const EmployeeModal = ({ isOpen, onClose, employee, onSave, mode }) => {
-  const initialValues = employee || {
-    name: "",
-    email: "",
-    phone: "",
-    designation: "",
-    department: "",
-    salary: "",
-  };
-
-  const validationSchema = Yup.object({
+  
+  const validationSchema = useMemo(() => Yup.object({
     name: Yup.string().required("Name is required"),
     email: Yup.string().email("Invalid email address").required("Email is required"),
     phone: Yup.string()
@@ -25,21 +17,30 @@ const EmployeeModal = ({ isOpen, onClose, employee, onSave, mode }) => {
       .typeError("Salary must be a number")
       .positive("Salary must be greater than zero")
       .required("Salary is required"),
-  });
+  }), []);
 
   const formik = useFormik({
-    initialValues,
+    initialValues: employee || {
+      name: "",
+      email: "",
+      phone: "",
+      designation: "",
+      department: "",
+      salary: "",
+    },
     validationSchema,
     onSubmit: (values) => {
       onSave(values);
       onClose();
     },
+    validateOnChange: false, 
+    validateOnBlur: true,    
     enableReinitialize: true,
   });
 
   if (!isOpen) return null;
 
-  const InputField = ({ id, label, type, placeholder, icon: Icon }) => (
+  const InputField = React.memo(({ id, label, type, placeholder, icon: Icon }) => (
     <div className="relative">
       <label htmlFor={id} className="block text-sm font-medium text-gray-700 mb-2">
         {label}
@@ -56,15 +57,15 @@ const EmployeeModal = ({ isOpen, onClose, employee, onSave, mode }) => {
           className={`w-full pl-12 pr-4 py-3 rounded-xl border ${
             formik.touched[id] && formik.errors[id] 
               ? "border-red-300 bg-red-50" 
-              : "border-gray-200 hover:border-blue-400"
-          } focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all outline-none bg-white`}
+              : "border-gray-200"
+          } focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all outline-none`}
         />
       </div>
       {formik.touched[id] && formik.errors[id] && (
-        <p className="text-sm text-red-500 mt-1 ml-1">{formik.errors[id]}</p>
+        <p className="text-sm text-red-500 mt-1">{formik.errors[id]}</p>
       )}
     </div>
-  );
+  ));
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto">
@@ -196,4 +197,4 @@ const EmployeeModal = ({ isOpen, onClose, employee, onSave, mode }) => {
   );
 };
 
-export default EmployeeModal;
+export default React.memo(EmployeeModal);
