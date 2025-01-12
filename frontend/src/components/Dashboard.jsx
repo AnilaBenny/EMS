@@ -74,87 +74,101 @@ const EmployeeDashboard = () => {
   );
 
   const EmployeeCard = ({ emp }) => (
-    <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100 mb-4">
-      <div className="flex justify-between items-start mb-2">
-        <div>
-          <h3 className="font-semibold text-gray-800">{emp.name}</h3>
-          <p className="text-sm text-gray-600">{emp.designation}</p>
+    <div className="bg-white rounded-xl shadow-lg border border-gray-100 mb-6 overflow-hidden transform transition-all hover:scale-[1.02] hover:shadow-xl">
+      <div className="p-6">
+        <div className="flex justify-between items-start mb-4">
+          <div>
+            <h3 className="text-xl font-bold text-gray-800">{emp.name}</h3>
+            <p className="text-sm font-medium text-blue-600">{emp.designation}</p>
+          </div>
+          <div className="relative">
+            <button
+              onClick={() => setShowMobileMenu(showMobileMenu === emp._id ? null : emp._id)}
+              className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+            >
+              <FiMoreVertical className="text-gray-600" />
+            </button>
+            {showMobileMenu === emp._id && (
+              <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl z-50 border border-gray-100 overflow-hidden">
+                <button 
+                  onClick={() => { handleOpenModal(emp); setShowMobileMenu(null); }}
+                  className="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 flex items-center gap-2 transition-colors"
+                >
+                  <FiEdit className="text-blue-600" /> Edit
+                </button>
+                <button 
+                  onClick={() => { handleDelete(emp._id); setShowMobileMenu(null); }}
+                  className="w-full text-left px-4 py-3 text-sm text-red-600 hover:bg-red-50 flex items-center gap-2 transition-colors"
+                >
+                  <FiTrash /> Delete
+                </button>
+              </div>
+            )}
+          </div>
         </div>
-        <div className="relative">
-          <button
-            onClick={() => setShowMobileMenu(showMobileMenu === emp._id ? null : emp._id)}
-            className="p-2 hover:bg-gray-100 rounded-full"
-          >
-            <FiMoreVertical className="text-gray-600" />
-          </button>
-          {showMobileMenu === emp._id && (
-            <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-50 border border-gray-100">
-              <button onClick={() => { handleOpenModal(emp); setShowMobileMenu(null); }}
-                className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2">
-                <FiEdit /> Edit
-              </button>
-              <button onClick={() => { handleDelete(emp._id); setShowMobileMenu(null); }}
-                className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-50 flex items-center gap-2">
-                <FiTrash /> Delete
-              </button>
+        
+        <div className="grid grid-cols-2 gap-4 mb-4">
+          <div className="bg-gray-50 p-3 rounded-lg">
+            <p className="text-sm text-gray-500 mb-1">Department</p>
+            <p className="font-semibold text-gray-800">{emp.department}</p>
+          </div>
+          <div className="bg-gray-50 p-3 rounded-lg">
+            <p className="text-sm text-gray-500 mb-1">Salary</p>
+            <p className="font-semibold text-gray-800">${emp.salary}</p>
+          </div>
+        </div>
+
+        <div className="space-y-3">
+          <div className="flex items-center gap-3 text-gray-600">
+            <div className="bg-blue-50 p-2 rounded-full">
+              <FiPhone className="text-blue-600" />
             </div>
-          )}
-        </div>
-      </div>
-      <div className="grid grid-cols-2 gap-2 text-sm mb-3">
-        <div>
-          <p className="text-gray-500">Department</p>
-          <p className="font-medium">{emp.department}</p>
-        </div>
-        <div>
-          <p className="text-gray-500">Salary</p>
-          <p className="font-medium">${emp.salary}</p>
-        </div>
-      </div>
-      <div className="text-sm space-y-2">
-        <div className="flex items-center gap-2 text-gray-600">
-          <FiPhone className="text-gray-400" />
-          <span>{emp.phone}</span>
-        </div>
-        <div className="flex items-center gap-2 text-gray-600">
-          <FiMail className="text-gray-400" />
-          <span>{emp.email}</span>
-        </div>
-        <div className="text-gray-500">
-          Joined: {new Date(emp.joiningDate).toLocaleDateString()}
+            <span>{emp.phone}</span>
+          </div>
+          <div className="flex items-center gap-3 text-gray-600">
+            <div className="bg-blue-50 p-2 rounded-full">
+              <FiMail className="text-blue-600" />
+            </div>
+            <span>{emp.email}</span>
+          </div>
+          <div className="text-sm text-gray-500 mt-4 pt-4 border-t">
+            Joined: {new Date(emp.joiningDate).toLocaleDateString()}
+          </div>
         </div>
       </div>
     </div>
-  )
+  );
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 p-2 md:p-6 lg:p-8">
-      <div className="mx-auto max-w-6xl bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl overflow-hidden border border-gray-100">
-        <div className="p-4 md:p-8">
-        
-          <div className="flex items-center justify-center gap-3 mb-6 md:mb-12">
-            <FiUsers className="text-3xl md:text-4xl text-blue-600" />
-            <h1 className="text-2xl md:text-4xl font-bold text-gray-800">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 p-4 md:p-8">
+      <div className="mx-auto max-w-7xl bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden border border-gray-100">
+        <div className="p-6 md:p-8">
+          <div className="flex items-center justify-center gap-4 mb-8 md:mb-12">
+            <div className="bg-blue-100 p-3 rounded-2xl">
+              <FiUsers className="text-3xl md:text-4xl text-blue-600" />
+            </div>
+            <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
               Employee Dashboard
             </h1>
           </div>
 
-          <div className="flex flex-col md:flex-row gap-4 mb-6 md:mb-8">
+          <div className="flex flex-col md:flex-row gap-4 mb-8">
             <div className="flex-1">
               <div className="relative group">
-                <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-hover:text-blue-500 transition-colors" />
+                <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-hover:text-blue-500 transition-colors" />
                 <input
                   type="text"
                   placeholder="Search by name"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all outline-none bg-white/70 backdrop-blur-sm"
+                  className="w-full pl-12 pr-4 py-4 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all outline-none bg-white/90 backdrop-blur-sm text-gray-700"
                 />
               </div>
             </div>
             <select
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
-              className="px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all outline-none bg-white/70 backdrop-blur-sm cursor-pointer hover:border-blue-500"
+              className="px-6 py-4 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all outline-none bg-white/90 backdrop-blur-sm cursor-pointer text-gray-700"
             >
               <option value="">All Departments</option>
               <option value="IT">IT</option>
@@ -163,7 +177,7 @@ const EmployeeDashboard = () => {
             </select>
             <button
               onClick={() => handleOpenModal()}
-              className="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl transition-all transform hover:scale-105 hover:shadow-lg"
+              className="flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-xl transition-all hover:shadow-lg hover:shadow-blue-200 active:scale-95"
             >
               <FiPlus className="text-lg" />
               <span className="hidden md:inline">Add Employee</span>
@@ -171,8 +185,8 @@ const EmployeeDashboard = () => {
             </button>
           </div>
 
-         
-         <div className="hidden md:block overflow-x-auto">
+          {/* Desktop Table View */}
+          <div className="hidden md:block overflow-x-auto rounded-xl">
             {filteredEmployees.length > 0 ? (
               <table className="w-full">
                 <thead>
@@ -189,22 +203,32 @@ const EmployeeDashboard = () => {
                 </thead>
                 <tbody className="divide-y divide-gray-100">
                   {filteredEmployees.map((emp) => (
-                    <tr key={emp._id} className="hover:bg-gray-50 transition-colors">
+                    <tr key={emp._id} className="hover:bg-gray-50/50 transition-colors">
                       <td className="px-6 py-4 text-gray-800 font-medium">{emp.name}</td>
-                      <td className="px-6 py-4 text-gray-600">{emp.designation}</td>
-                      <td className="px-6 py-4">{emp.department}</td>
+                      <td className="px-6 py-4 text-blue-600 font-medium">{emp.designation}</td>
+                      <td className="px-6 py-4">
+                        <span className="px-3 py-1 bg-gray-100 rounded-full text-sm">
+                          {emp.department}
+                        </span>
+                      </td>
                       <td className="px-6 py-4 text-gray-600">{emp.phone}</td>
                       <td className="px-6 py-4 text-gray-600">{emp.email}</td>
-                      <td className="px-6 py-4 text-right text-gray-600">${emp.salary}</td>
-                      <td className="px-6 py-4 text-right text-gray-600">{new Date(emp.joiningDate).toLocaleDateString()}</td>
+                      <td className="px-6 py-4 text-right font-medium">${emp.salary}</td>
+                      <td className="px-6 py-4 text-right text-gray-600">
+                        {new Date(emp.joiningDate).toLocaleDateString()}
+                      </td>
                       <td className="px-6 py-4">
-                        <div className="flex gap-4 justify-end">
-                          <button onClick={() => handleOpenModal(emp)}
-                            className="text-blue-600 hover:text-blue-800 transition-colors p-1 hover:bg-blue-50 rounded-lg">
+                        <div className="flex gap-2 justify-end">
+                          <button 
+                            onClick={() => handleOpenModal(emp)}
+                            className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                          >
                             <FiEdit className="text-lg" />
                           </button>
-                          <button onClick={() => handleDelete(emp._id)}
-                            className="text-red-600 hover:text-red-800 transition-colors p-1 hover:bg-red-50 rounded-lg">
+                          <button 
+                            onClick={() => handleDelete(emp._id)}
+                            className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                          >
                             <FiTrash className="text-lg" />
                           </button>
                         </div>
@@ -220,7 +244,8 @@ const EmployeeDashboard = () => {
             )}
           </div>
 
-          <div className="md:hidden">
+          {/* Mobile Card View */}
+          <div className="md:hidden grid grid-cols-1 gap-6">
             {filteredEmployees.length > 0 ? (
               filteredEmployees.map((emp) => (
                 <EmployeeCard key={emp._id} emp={emp} />
@@ -241,9 +266,18 @@ const EmployeeDashboard = () => {
         employee={selectedEmployee}
       />
 
-      <div id="toast-container">
-        <ToastContainer />
-      </div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </div>
   );
 };
