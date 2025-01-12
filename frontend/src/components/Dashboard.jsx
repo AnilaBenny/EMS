@@ -131,9 +131,6 @@ const EmployeeDashboard = () => {
             </div>
             <span>{emp.email}</span>
           </div>
-          <div className="text-sm text-gray-500 mt-4 pt-4 border-t">
-            Joined: {new Date(emp.joiningDate).toLocaleDateString()}
-          </div>
         </div>
       </div>
     </div>
@@ -197,7 +194,6 @@ const EmployeeDashboard = () => {
                     <th className="px-6 py-4 text-left text-sm font-semibold text-gray-600">Phone</th>
                     <th className="px-6 py-4 text-left text-sm font-semibold text-gray-600">Email</th>
                     <th className="px-6 py-4 text-right text-sm font-semibold text-gray-600">Salary</th>
-                    <th className="px-6 py-4 text-right text-sm font-semibold text-gray-600">Joining Date</th>
                     <th className="px-6 py-4 text-right text-sm font-semibold text-gray-600">Actions</th>
                   </tr>
                 </thead>
